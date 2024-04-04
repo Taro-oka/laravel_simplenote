@@ -94,7 +94,7 @@
                 <div class="card-header d-flex">メモ一覧 <a class='ml-auto' href='/create'><i class="fas fa-plus-circle"></i></a></div>
                 <div class="card-body p-2">
                     @foreach ($memos as $memo)
-                        <p>{{ $memo['content'] }}</p>
+                        <a href="/edit/{{ $memo['id'] }}" class="d-block w-fit">{{ $memo['content'] }}</a>
                     @endforeach                    
                 </div>
               </div>    
