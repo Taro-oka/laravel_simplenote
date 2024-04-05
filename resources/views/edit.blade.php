@@ -2,7 +2,13 @@
 
 @section('content')
     <div class="card h-100">
-        <div class="card-header">メモ編集</div>
+        <div class="card-header d-flex justify-content-between">
+            メモ編集
+            <form method="POST" action="/delete/{{ $memo['id'] }}" id="delete-form">
+                @csrf
+                <button><i id="delete-button" class="fas fa-trash"></i></button>
+            </form>
+        </div>
         <div class="card-body">
             <form method='POST' action="{{  route('update', ['id'=>$memo['id']]) }}">
                 @csrf

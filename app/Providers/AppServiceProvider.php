@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Memo;
+use App\Models\Tag;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // どのページを表示するにしても、ここを通過させて、共通化したい部品を描画させるようにする！
+        View::composer("*", function ($view) {
+            $user = \Auth::user();
+
+            $memoModel = new Memo;
+            $memos = $memoModel->myMemos(\Auth::id());
+
+            // dd($memos);
+
+            $tagModel = new Tag;
+            $tags = $tagModel->where('user_id', \Auth::id())->get();
+
+            $view->with('user', $user)->with('memos', $memos)->with('tags', $tags);
+        });
     }
 }
