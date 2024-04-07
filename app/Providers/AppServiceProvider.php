@@ -28,13 +28,15 @@ class AppServiceProvider extends ServiceProvider
 
             $memoModel = new Memo;
             $memos = $memoModel->myMemos(\Auth::id());
-
-            // dd($memos);
+            $deleted_memos = $memoModel->myDeletedMemos(\Auth::id());;
 
             $tagModel = new Tag;
             $tags = $tagModel->where('user_id', \Auth::id())->get();
 
-            $view->with('user', $user)->with('memos', $memos)->with('tags', $tags);
+            $view->with('user', $user)
+                ->with('memos', $memos)
+                ->with('tags', $tags)
+                ->with('deleted_memos', $deleted_memos);
         });
     }
 }

@@ -30,4 +30,13 @@ class Memo extends Model
             return $memos;
         }
     }
+
+    public function myDeletedMemos($user_id)
+    {
+        return static::select('memos.*')
+            ->where('user_id', '=', $user_id)
+            ->where('status', '=', 2)
+            ->orderBy('updated_at', 'desc')
+            ->get();    
+    }
 }

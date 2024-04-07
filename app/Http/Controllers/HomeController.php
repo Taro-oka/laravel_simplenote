@@ -89,4 +89,10 @@ class HomeController extends Controller
         Memo::where('id', '=', $id)->update(['status' => 2]);
         return redirect()->route('home')->with('success', '削除が完了しました。');
     }
+    public function restore(Request $request, $id)
+    {
+        $data = $request->all();
+        Memo::where('id', '=', $id)->where('user_id', '=', $data['user_id'])->update(['status' => 1]);
+        return redirect()->route('home')->with('success', 'メモが復活しました。');
+    }
 }

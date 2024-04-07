@@ -97,7 +97,25 @@
                 <div class="card-body p-2">
                     @foreach ($memos as $memo)
                         <a href="/edit/{{ $memo['id'] }}" class="d-block">{{ $memo['content'] }}</a>
-                    @endforeach                    
+                    @endforeach 
+                    <br>                   
+                    <div class="show-deleted-memo">削除したメモ一覧を表示する</div>
+                    <div class="deleted-memo-content pt-2">
+                        @if (!$deleted_memos->isEmpty())
+                            @foreach ($deleted_memos as $deleted_memo)
+                                <form method="POST" action="/restore/{{ $deleted_memo['id'] }}" id="restore-form" class="mb-2">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <div class="w-100 d-flex justify-content-between align-items-center">
+                                        <span class="d-block">{{ $deleted_memo['content'] }}</span>
+                                        <button type="subimt" class="restore-btn btn btn-outline-primary btn-sm">元に戻す</button>
+                                    </div>
+                                </form>
+                            @endforeach
+                        @else
+                            <p>※削除されたものはありません</p>
+                        @endif
+                    </div>
                 </div>
               </div>    
             </div> <!-- col-md-3 -->

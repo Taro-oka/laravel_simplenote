@@ -6,3 +6,42 @@
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
+
+.show-deleted-memo {
+    position: relative;
+    padding-left: 1.2rem;
+    width: fit-content;
+    cursor: pointer;
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: gray;
+        height: calc(tan(60deg) * 1rem / 2);
+        width: 1rem;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        transform-origin: center;
+        transition: transform 0.5s;
+        cursor: pointer;
+    }
+
+    &.active {
+        &::before {
+            transform: rotate(180deg) translateY(50%);
+        }
+    }
+}
+
+.deleted-memo-content {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+
+    &.showing {
+        visibility: visible;
+        opacity: 1;
+    }
+}

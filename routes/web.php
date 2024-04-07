@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('edit');
     Route::post('/update/{id}', [HomeController::class, 'update'])->name('update');
     Route::post('/delete/{id}', [HomeController::class, 'delete'])->name('delete');
+    Route::post('/restore/{id}', [HomeController::class, 'restore'])->name('restore');
 });
 
 Route::fallback(function () {
