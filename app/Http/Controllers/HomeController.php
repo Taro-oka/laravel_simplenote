@@ -25,22 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        $memos = Memo::where('user_id', '=', $user['id'])
-            ->where('status', '=', 1)
-            ->orderBy('updated_at', 'desc')
-            ->get();
-        return view('create', compact('user', 'memos'));
+        return view('create');
     }
 
     public function create()
     {
-        $user = \Auth::user();
-        $memos = Memo::where('user_id', '=', $user['id'])
-            ->where('status', '=', 1)
-            ->orderBy('updated_at', 'desc')
-            ->get();
-        return view('create', compact('user', 'memos'));
+        return view('create');
     }
 
     public function store(Request $request)
@@ -75,17 +65,11 @@ class HomeController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
-        $memos = Memo::where('user_id', '=', $user['id'])
-            ->where('status', '=', 1)
-            ->orderBy('updated_at', 'desc')
-            ->get();
-        $memo = Memo::where('user_id', '=', $user['id'])
+        $memo = Memo::where('user_id', '=', \Auth::id())
             ->where('id', '=', $id)
             ->where('status', '=', 1)
             ->first();
-        $tags = Tag::where('user_id', '=', $user['id'])->get();
-        return view('edit', compact('user', 'memo', 'memos', 'tags'));
+        return view('edit', compact('memo'));
     }
 
     public function update(Request $request, $id)
